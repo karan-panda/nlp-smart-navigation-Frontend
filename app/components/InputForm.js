@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import LoadingButton from "./LoadingButton";
 import ResponseDisplay from "./ResponseDisplay";
@@ -9,6 +10,7 @@ export default function InputForm() {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
+  const router = useRouter();
 
   // Auto-focus input field when component mounts
   useEffect(() => {
@@ -21,6 +23,12 @@ export default function InputForm() {
     try {
       const res = await axios.post("http://localhost:5000/analyze", { query });
       setResponse(res.data);
+
+      // If API provides a valid route, navigate automatically
+      if (res.data?.route) {
+        router.push(res.data.route);
+      }
+
     } catch (error) {
       setResponse({ error: "Failed to fetch response." });
     }
@@ -43,9 +51,9 @@ export default function InputForm() {
         padding: "15px",
         borderRadius: "12px",
         boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-        backgroundColor: "#ffffff", // Light background
+        backgroundColor: "#ffffff",
         fontFamily: "'Segoe UI', sans-serif",
-        color: "#212529", // Dark text for readability
+        color: "#212529",
       }}
     >
       {/* Header */}
