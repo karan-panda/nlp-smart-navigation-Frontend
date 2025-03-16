@@ -1,0 +1,116 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Set a professional font */
+  body {
+    font-family: "Arial", sans-serif;
+    background-color: #f8f9fa; /* Light grey background */
+    color: #333; /* Dark grey text */
+  }
+  
+  /* Ensure consistent image scaling */
+  img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Navbar Styling */
+  .navbar {
+    background-color: #004080; /* ICICI Lombard Blue */
+    padding: 12px 20px;
+  }
+  
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar a:hover {
+    color: #ff6600; /* Orange hover effect */
+  }
+  
+  /* Hero Section (Carousel) */
+  .carousel-item img {
+    height: 400px;
+    object-fit: cover;
+  }
+  
+  .carousel-caption {
+    background: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #000; /* Black text */
+  }
+  
+  /* Insurance Plans Section */
+  .card {
+    border: none;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card img {
+    height: 180px; /* Fixed height for uniform card images */
+    object-fit: cover;
+  }
+  
+  /* Call to Action Section */
+  .cta-section {
+    background-color: #004080;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  
+  .cta-section h2 {
+    font-size: 28px;
+  }
+  
+  .cta-section .btn {
+    background-color: white;
+    color: #004080;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 8px;
+  }
+  
+  .cta-section .btn:hover {
+    background-color: #ff6600;
+    color: white;
+  }
+  
+  /* Floating Widget */
+  .floating-widget {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .floating-widget.open {
+    width: 320px;
+    height: 400px;
+  }  
