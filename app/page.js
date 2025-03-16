@@ -1,11 +1,13 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Carousel } from "react-bootstrap";
+import { Carousel, Navbar } from "react-bootstrap";
+import NavBar from "./components/NavBar.js";
 
 export default function Home() {
   return (
     <div style={{ fontFamily: "Arial, sans-serif", backgroundColor: "#f8f9fa" }}>
-      {/* Hero Section with Fixed-Size Carousel */}
+      <NavBar />
+
       <section>
         <Carousel fade className="mb-4">
           {[
