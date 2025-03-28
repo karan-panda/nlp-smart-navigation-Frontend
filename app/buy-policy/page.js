@@ -59,7 +59,7 @@ export default function BuyInsurance() {
               <p className="mt-2 mb-0">Home Insurance</p>
             </div>
           </Link>
-          <Link href="/buy-policy/retail" className="flex-fill">
+          <Link href="buy-policy/retailNcorporate" className="flex-fill">
             <div className="card p-3 text-center shadow-sm">
               {/* <img src="/icons/retail.png" alt="Retail & Corporate" width="40" /> */}
               <p className="mt-2 mb-0">Retail & Corporate</p>

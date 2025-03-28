@@ -10,7 +10,12 @@ export default function Policies() {
         <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Policies</h1>
   
         {/* Category Buttons */}
-        
+        <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+          <button style={{ padding: '10px 20px', backgroundColor: '#F4F4F4', border: 'none', borderRadius: '20px', color: '#333' }} onClick={() => router.push('/policies')}>Health</button>
+          <button style={{ padding: '10px 20px', backgroundColor: '#F4F4F4', border: 'none', borderRadius: '20px', color: '#333' }} onClick={() => router.push('/policies/vehicle')}>Vehicle</button>
+          <button style={{ padding: '10px 20px', backgroundColor: '#FF6600', color: '#FFF', border: 'none', borderRadius: '20px', fontWeight: 'bold' }} onClick={() => router.push('/policies/travel')}>Travel</button>
+          <button style={{ padding: '10px 20px', backgroundColor: '#F4F4F4', border: 'none', borderRadius: '20px', color: '#333' }} onClick={() => router.push('/policies/home')}>Home</button>
+        </div>
   
         {/* Recent Policy Section */}
         <div style={{ marginTop: '20px', padding: '15px', border: '1px solid #FF6600', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -25,7 +30,7 @@ export default function Policies() {
           <p style={{ fontSize: '16px', color: '#666' }}>
             Click <span style={{ fontWeight: 'bold' }}>'Buy policy'</span> to explore our insurance products directly from the app.
           </p>
-          <button style={{ padding: '12px 25px', backgroundColor: '#FF6600', color: '#FFF', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer' }} onClick={() => router.push('/buy-policy/health')}>Buy policy</button>
+          <button style={{ padding: '12px 25px', backgroundColor: '#FF6600', color: '#FFF', border: 'none', borderRadius: '8px', fontSize: '16px', cursor: 'pointer' }} onClick={() => router.push('/buy-policy/travel')}>Buy policy</button>
         </div>
   
         {/* Separator */}
@@ -36,7 +41,7 @@ export default function Policies() {
           <p style={{ fontSize: '16px', color: '#666' }}>
             Can't see your policy? Click <span style={{ fontWeight: 'bold' }}>'Add policy'</span> to avail app exclusive services.
           </p>
-          <button style={{ padding: '12px 25px', backgroundColor: '#FFF', color: '#FF6600', border: '2px solid #FF6600', borderRadius: '8px', fontSize: '16px', cursor: 'pointer' }} onClick={() => router.push('/add-policy/health')}>Add policy</button>
+          <button style={{ padding: '12px 25px', backgroundColor: '#FFF', color: '#FF6600', border: '2px solid #FF6600', borderRadius: '8px', fontSize: '16px', cursor: 'pointer' }} onClick={() => router.push('/add-policy/travel')}>Add policy</button>
         </div>
       </div>
     );

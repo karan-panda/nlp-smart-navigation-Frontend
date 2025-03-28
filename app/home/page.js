@@ -7,9 +7,9 @@ export default function Home() {
   const router = useRouter();
 
   const blogs = [
-    { id: 1, title: 'Motor News And Views', description: 'Stay up-to-date with latest motor news, car reviews.', category: 'Motor', readTime: '2min Read', image: '/motor-news.png', link: '/motor-news' },
-    { id: 2, title: 'Ayurveda Hub', description: 'Everything about Ayurveda, from dadi ke nuskhe.', category: 'Ayurveda', readTime: '2min Read', image: '/ayurveda-hub.png', link: '/ayurveda-hub' },
-    { id: 3, title: 'Wellness Blogs', description: 'Read tips on improving lifestyle, diet and managing health.', category: 'Wellness', readTime: '2min Read', image: '/wellness-blogs.png', link: '/wellness-blogs' }
+    { id: 1, title: 'Motor News And Views', description: 'Stay up-to-date with latest motor news, car reviews.', category: 'Motor', readTime: '2min Read', image: '/motor-news.png', link: '/blogs/motor-news' },
+    { id: 2, title: 'Ayurveda Hub', description: 'Everything about Ayurveda, from dadi ke nuskhe.', category: 'Ayurveda', readTime: '2min Read', image: '/ayurveda-hub.png', link: '/blogs/ayurveda-hub' },
+    { id: 3, title: 'Wellness Blogs', description: 'Read tips on improving lifestyle, diet and managing health.', category: 'Wellness', readTime: '2min Read', image: '/wellness-blogs.png', link: '/blogs/wellness-blogs' }
   ];
 
   return (
@@ -87,7 +87,7 @@ export default function Home() {
               <div>
                 <p className="mb-1">Score: -- | Braking: --</p>
                 <p className="mb-1">Time: --  | Speeding: --</p>
-                <button className="btn btn-warning btn-sm">View More</button>
+                <button className="btn btn-warning btn-sm" onClick={() => router.push('/driving-score')}>View More</button>
               </div>
             </div>
           </div>
