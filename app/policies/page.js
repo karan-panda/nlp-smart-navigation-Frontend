@@ -11,10 +11,10 @@ export default function Policies() {
   
         {/* Category Buttons */}
         <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-          <button style={{ padding: '10px 20px', backgroundColor: '#FF6600', color: '#FFF', border: 'none', borderRadius: '20px', fontWeight: 'bold' }}>Health</button>
-          <button style={{ padding: '10px 20px', backgroundColor: '#F4F4F4', border: 'none', borderRadius: '20px', color: '#333' }}>Vehicle</button>
-          <button style={{ padding: '10px 20px', backgroundColor: '#F4F4F4', border: 'none', borderRadius: '20px', color: '#333' }}>Travel</button>
-          <button style={{ padding: '10px 20px', backgroundColor: '#F4F4F4', border: 'none', borderRadius: '20px', color: '#333' }}>Home</button>
+          <button style={{ padding: '10px 20px', backgroundColor: '#FF6600', color: '#FFF', border: 'none', borderRadius: '20px', fontWeight: 'bold' }} onClick={() => router.push('/policies')}>Health</button>
+          <button style={{ padding: '10px 20px', backgroundColor: '#F4F4F4', border: 'none', borderRadius: '20px', color: '#333' }} onClick={() => router.push('/policies/vehicle')}>Vehicle</button>
+          <button style={{ padding: '10px 20px', backgroundColor: '#F4F4F4', border: 'none', borderRadius: '20px', color: '#333' }} onClick={() => router.push('/policies/travel')}>Travel</button>
+          <button style={{ padding: '10px 20px', backgroundColor: '#F4F4F4', border: 'none', borderRadius: '20px', color: '#333' }} onClick={() => router.push('/policies/home')}>Home</button>
         </div>
   
         {/* Recent Policy Section */}
