@@ -1,83 +1,95 @@
 "use client";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import InputForm from "./components/InputForm";
-import Image from "next/image";
+import { motion } from "framer-motion";
+import { Search } from "lucide-react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useRouter } from "next/navigation";
+import { BrowserRouter as Router } from "react-router-dom";
+import Nav from "./components/Nav";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+export default function Layout({ children }) {
+  const [search, setSearch] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+  const [results, setResults] = useState([]);
+  const router = useRouter();
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  const handleSearch = async (value) => {
+    setSearch(value);
+    if (value.trim() === "") {
+      setResults([]);
+      return;
+    }
 
-export default function RootLayout({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/predict/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: value }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setResults(data);
+      } else {
+        setResults([]);
+      }
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+      setResults([]);
+    }
+  };
+
+  const handleRedirect = (route) => {
+    router.push(route);
+    setIsFocused(false);
+  };
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* Main Content */}
-        {children}
+      <body>
+        <div className={`position-relative min-vh-100 overflow-hidden ${isFocused ? 'blur-background' : ''}`}>
+          <Router>
+            {children}
+          </Router>
 
-        {/* Floating Widget */}
-        <div
-          style={{
-            position: "fixed",
-            right: "20px",
-            bottom: "20px",
-            width: isOpen ? "360px" : "50px",
-            height: isOpen ? "520px" : "50px",
-            backgroundColor: "white",
-            borderRadius: "15px",
-            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
-            border: "1px solid #ddd",
-            overflow: "hidden",
-            transition: "width 0.3s ease-in-out, height 0.3s ease-in-out",
-            zIndex: 1000,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? (
-            <div style={{ width: "100%", padding: "15px" }}>
-              {/* Close Button */}
-              <button
-                className="btn btn-sm btn-outline-dark"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsOpen(false);
-                }}
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: "10px",
-                }}
-              >
-                ✖
-              </button>
+          {isFocused && <div className="position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50" style={{ zIndex: 9998 }} onClick={() => setIsFocused(false)}></div>}
 
-              <h5 className="text-center mb-3">🔍 Smart Navigator</h5>
-              <InputForm />
+          <motion.div
+            className="position-fixed start-50 translate-middle-x w-100 max-w-50 px-3 mb-5"
+            animate={{ bottom: isFocused ? "50%" : "40px", scale: isFocused ? 1.2 : 1 }}
+            transition={{ type: "spring", stiffness: 200 }}
+            style={{ zIndex: 9999 }}
+          >
+            <div className="bg-white shadow-lg rounded-pill d-flex align-items-center m-8 p-2 border border-secondary position-relative">
+              <Search className="ms-3 text-secondary" />
+              <input
+                className="form-control border-0 bg-transparent mb-6 px-3 py-2 fs-5 flex-grow-1"
+                placeholder="IL QuickSearch..."
+                value={search}
+                onChange={(e) => handleSearch(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+              />
             </div>
-          ) : (
-            <Image
-              src="/icici.jpg"
-              alt="ICICI Logo"
-              width={40}
-              height={40}
-              style={{ borderRadius: "50%" }}
-            />
-          )}
+
+            {isFocused && results.length > 0 && (
+              <div className="position-absolute top-100 start-0 w-100 mt-2 bg-white shadow-lg rounded p-2 border border-secondary" onMouseDown={(e) => e.preventDefault()}>
+                {results.map((item, index) => (
+                  <div
+                    key={index}
+                    className="p-2 rounded text-dark bg-light hover-bg-secondary cursor-pointer"
+                    onMouseDown={() => handleRedirect(item.route)}
+                  >
+                    <strong>{item.intent}</strong> <br />
+                    <small className="text-muted">{item.route}</small>
+                  </div>
+                ))}
+              </div>
+            )}
+          </motion.div>
         </div>
+        <Nav />
       </body>
     </html>
   );

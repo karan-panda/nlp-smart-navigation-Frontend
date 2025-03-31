@@ -7,9 +7,9 @@ export default function Home() {
   const router = useRouter();
 
   const blogs = [
-    { id: 1, title: 'Motor News And Views', description: 'Stay up-to-date with latest motor news, car reviews.', category: 'Motor', readTime: '2min Read', image: '/motor.jfif', link: '/blogs/motor-news' },
-    { id: 2, title: 'Ayurveda Hub', description: 'Everything about Ayurveda, from dadi ke nuskhe.', category: 'Ayurveda', readTime: '2min Read', image: '/ayurveda.jfif', link: '/blogs/ayurveda-hub' },
-    { id: 3, title: 'Wellness Blogs', description: 'Read tips on improving lifestyle, diet and managing health.', category: 'Wellness', readTime: '2min Read', image: '/wellness.jfif', link: '/blogs/wellness-blogs' }
+    { id: 1, title: 'Motor News And Views', description: 'Stay up-to-date with latest motor news, car reviews.', category: 'Motor', readTime: '2min Read', image: '/motor-news.png', link: '/blogs/motor-news' },
+    { id: 2, title: 'Ayurveda Hub', description: 'Everything about Ayurveda, from dadi ke nuskhe.', category: 'Ayurveda', readTime: '2min Read', image: '/ayurveda-hub.png', link: '/blogs/ayurveda-hub' },
+    { id: 3, title: 'Wellness Blogs', description: 'Read tips on improving lifestyle, diet and managing health.', category: 'Wellness', readTime: '2min Read', image: '/wellness-blogs.png', link: '/blogs/wellness-blogs' }
   ];
 
   return (
@@ -24,10 +24,10 @@ export default function Home() {
         <button className="btn btn-warning" style={{ backgroundColor: '#FF6600' }} onClick={() => router.push('/add-policy')}>Add now +</button>
       </div>
 
-        <section className="my-4 d-flex justify-content-between align-items-center">
-          <h2 className="h4 fw-bold">Buy Insurance</h2>
-          <Link href="/buy-policy" className="text-warning fw-semibold">View All</Link>
-        </section>
+      <section className="my-4 d-flex justify-content-between align-items-center">
+  <h2 className="h4 fw-bold">Buy Insurance</h2>
+  <Link href="/buy-policy" className="text-warning fw-semibold">View All</Link>
+</section>
 
 <div className="row mt-2">
   <div className="col-6 col-md-4 mb-3">
@@ -58,7 +58,7 @@ export default function Home() {
 </nav> */}
 
 <section className="my-4">
-    <h2 className="h5 fw-bold">Live well and yield <span style={{color:"#FF6600"}}>rewards</span></h2>
+    <h2 className="h5 fw-bold">Live well and yield <span className="text-warning">rewards</span></h2>
     <div className="row g-2">
       <div className="col-md-6">
         <div className="card shadow mx-auto" style={{ maxWidth: '400px' }}>
@@ -70,7 +70,7 @@ export default function Home() {
               <div>
                 <p className="mb-1">HR: -- | SpO2: --</p>
                 <p className="mb-1">RR: -- | HRV: --</p>
-                <button className="btn btn-md" style={{background:"#FF6600"}} onClick={() => router.push('/face-scan')}>Scan now</button>
+                <button className="btn btn-warning btn-sm" onClick={() => router.push('/face-scan')}>Scan now</button>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function Home() {
               <div>
                 <p className="mb-1">Score: -- | Braking: --</p>
                 <p className="mb-1">Time: --  | Speeding: --</p>
-                <button className="btn  btn-md" style={{background:"#FF6600"}} onClick={() => router.push('/driving-score')}>View More</button>
+                <button className="btn btn-warning btn-sm" onClick={() => router.push('/driving-score')}>View More</button>
               </div>
             </div>
           </div>
