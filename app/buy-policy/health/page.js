@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
+import { FaArrowLeft, FaInfoCircle, FaShoppingCart } from "react-icons/fa";
 
 export default function HealthBuyPolicy() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function HealthBuyPolicy() {
         "Covers day care procedures/treatments",
         "Unlimited teleconsultations#",
       ],
-      route: "/buy-policy/health/booster-combo"
+      route: "/buy-policy/health/active-booster-combo"
     },
     {
       title: "Activate Booster",
@@ -41,7 +42,7 @@ export default function HealthBuyPolicy() {
         "Higher sum insured at affordable premium",
         "In-patient treatment cover",
       ],
-      route: "/buy-policy/health/booster"
+      route: "/buy-policy/health/active-booster"
     },
     {
       title: "Health AdvantEdge",
@@ -58,10 +59,10 @@ export default function HealthBuyPolicy() {
     <div className="container-fluid bg-dark text-white min-vh-100">
       {/* Header */}
       <div className="d-flex align-items-center p-3">
-        <Link href="/buy">
-          <span className="text-white fs-4">&larr;</span>
+        <Link href="/buy" className="text-white fs-4 d-flex align-items-center">
+          <FaArrowLeft className="me-2" /> Back
         </Link>
-        <h2 className="ms-3 fw-bold mb-0" style={{color:"#FF6600"}}>Health Buy Policy</h2>
+        <h2 className="ms-3 fw-bold mb-0" style={{ color: "#FF6600" }}>Health Buy Policy</h2>
       </div>
 
       {/* Policy Cards */}
@@ -72,7 +73,7 @@ export default function HealthBuyPolicy() {
               <div className="d-flex justify-content-between align-items-center">
                 <h5 className="fw-bold">{policy.title}</h5>
                 {policy.tag && (
-                  <span className="badge text-dark" style={{background:"#FF6600"}}>{policy.tag}</span>
+                  <span className="badge text-dark" style={{ background: "#FF6600" }}>{policy.tag}</span>
                 )}
               </div>
               <ul className="mt-2 text-secondary">
@@ -81,14 +82,14 @@ export default function HealthBuyPolicy() {
                 ))}
               </ul>
               <div className="d-flex justify-content-between mt-3">
-                <Link href="/know-more" className=" fw-semibold" style={{color:"#FF6600"}}>
-                  Know More
+                <Link href="/know-more" className="fw-semibold d-flex align-items-center" style={{ color: "#FF6600" }}>
+                  <FaInfoCircle className="me-1" /> Know More
                 </Link>
                 <button
-                  className="btn text-white fw-bold" style={{background:"#FF6600"}}
+                  className="btn text-white fw-bold d-flex align-items-center" style={{ background: "#FF6600" }}
                   onClick={() => router.push(policy.route)}
                 >
-                  Buy Now
+                  <FaShoppingCart className="me-2" /> Buy Now
                 </button>
               </div>
             </div>

@@ -1,87 +1,85 @@
 "use client";
 import Link from "next/link";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { FaArrowLeft, FaHeartbeat, FaCar, FaMotorcycle, FaPlane, FaHome, FaBuilding, FaShoppingCart } from "react-icons/fa";
 
 export default function BuyInsurance() {
   return (
-    <div className="container-fluid p-4">
-      <header className="d-flex align-items-center mb-3">
+    <div className="container-fluid p-4 bg-light min-vh-100">
+      <header className="d-flex align-items-center mb-4">
         <Link href="/">
-          <button className="btn btn-light me-2">←</button>
+          <button className="btn btn-outline-dark me-2 d-flex align-items-center">
+            <FaArrowLeft className="me-1" /> Back
+          </button>
         </Link>
-        <h1 className="h4 fw-bold mb-0">Buy</h1>
+        <h1 className="h4 fw-bold mb-0 " style={{color:'#FF6600'}}>Buy Insurance</h1>
       </header>
 
       <section>
-        <h5 className="fw-bold">Health <span style={{color:"#FF6600"}}>Insurance</span></h5>
+        <h5 className="fw-bold text-dark">Health <span className="text-danger">Insurance</span></h5>
         <Link href="/buy-policy/health">
-          <div className="card p-4 mb-3 text-center shadow-sm">
-            {/* <img src="/icons/health.png" alt="Health Insurance" width="40" /> */}
-            <p className="mt-2 mb-0 fs-5">Health Insurance</p>
+          <div className="card p-4 mb-3 text-center shadow-sm bg-white">
+            <FaHeartbeat className="text-danger fs-2" />
+            <p className="mt-2 mb-0 fs-5 fw-semibold">Health Insurance</p>
           </div>
         </Link>
       </section>
 
       <section>
-        <h5 className="fw-bold">Vehicle <span style={{color:"#FF6600"}}>Insurance</span></h5>
-        <div className="d-flex gap-2">
+        <h5 className="fw-bold text-dark">Vehicle <span className="text-danger">Insurance</span></h5>
+        <div className="d-flex gap-3">
           <Link href="/buy-policy/car" className="flex-fill">
-            <div className="card p-3 text-center shadow-sm">
-              {/* <img src="/icons/car.png" alt="Car Insurance" width="40" /> */}
-              <p className="mt-2 mb-0 fs-5">Car Insurance</p>
+            <div className="card p-3 text-center shadow-sm bg-white">
+              <FaCar className="text-primary fs-2" />
+              <p className="mt-2 mb-0 fs-5 fw-semibold">Car Insurance</p>
             </div>
           </Link>
           <Link href="/buy-policy/bike" className="flex-fill">
-            <div className="card p-3 text-center shadow-sm">
-              {/* <img src="/icons/bike.png" alt="Bike Insurance" width="40" /> */}
-              <p className="mt-2 mb-0 fs-5">Bike Insurance</p>
+            <div className="card p-3 text-center shadow-sm bg-white">
+              <FaMotorcycle className="text-success fs-2" />
+              <p className="mt-2 mb-0 fs-5 fw-semibold">Bike Insurance</p>
             </div>
           </Link>
         </div>
       </section>
 
       <section>
-        <h5 className="fw-bold">Travel <span style={{color:"#FF6600"}}>Insurance</span></h5>
+        <h5 className="fw-bold text-dark">Travel <span className="text-danger">Insurance</span></h5>
         <Link href="/buy-policy/travel">
-          <div className="card p-4 mb-3 text-center shadow-sm">
-            {/* <img src="/icons/travel.png" alt="Travel Insurance" width="40" /> */}
-            <p className="mt-2 mb-0 fs-5">TripSecure+</p>
+          <div className="card p-4 mb-3 text-center shadow-sm bg-white">
+            <FaPlane className="text-info fs-2" />
+            <p className="mt-2 mb-0 fs-5 fw-semibold">TripSecure+</p>
           </div>
         </Link>
       </section>
 
       <section>
-        <h5 className="fw-bold">Other <span style={{color:"#FF6600"}}>Products</span></h5>
-        <div className="d-flex gap-2">
+        <h5 className="fw-bold text-dark">Other <span className="text-danger">Products</span></h5>
+        <div className="d-flex gap-3">
           <Link href="/buy-policy/home" className="flex-fill">
-            <div className="card p-3 text-center shadow-sm">
-              {/* <img src="/icons/home.png" alt="Home Insurance" width="40" /> */}
-              <p className="mt-2 mb-0 fs-5">Home Insurance</p>
+            <div className="card p-3 text-center shadow-sm bg-white">
+              <FaHome className="text-warning fs-2" />
+              <p className="mt-2 mb-0 fs-5 fw-semibold">Home Insurance</p>
             </div>
           </Link>
-          <Link href="buy-policy/retailNcorporate" className="flex-fill">
-            <div className="card p-3 text-center shadow-sm">
-              {/* <img src="/icons/retail.png" alt="Retail & Corporate" width="40" /> */}
-              <p className="mt-2 mb-0 fs-5">Retail & Corporate</p>
+          <Link href="/buy-policy/retailNcorporate" className="flex-fill">
+            <div className="card p-3 text-center shadow-sm bg-white">
+              <FaBuilding className="text-secondary fs-2" />
+              <p className="mt-2 mb-0 fs-5 fw-semibold">Retail & Corporate</p>
             </div>
           </Link>
         </div>
       </section>
 
       <div className="d-flex justify-content-between mt-4">
-        <Link href="/disclaimer" style={{color:"#FF6600"}}>Disclaimer</Link>
-        <Link href="/product-details" style={{color:"#FF6600"}}>Product details →</Link>
+        <Link href="/disclaimer" className="text-danger fw-bold">Disclaimer</Link>
+        <Link href="/product-details" className="text-danger fw-bold">Product Details →</Link>
       </div>
 
-      <nav className="navbar fixed-bottom bg-white shadow">
-        <div className="container d-flex justify-content-around">
-          <Link href="/home" className="nav-link active">Home</Link>
-          <Link href="/policies" className="nav-link">Policies</Link>
-          <Link href="/benefits" className="nav-link">Benefits</Link>
-          <Link href="/buy-policy" className="nav-link">Buy</Link>
-          <Link href="/help" className="nav-link">Help</Link>
-        </div>
-      </nav>
+       <div style={{ minHeight: "150px" }}>
+
+       </div>
+      
     </div>
   );
 }

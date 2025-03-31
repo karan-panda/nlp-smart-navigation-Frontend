@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Container, Form, Button, Card } from "react-bootstrap";
+import { Container, Form, Button, Card, Row, Col } from "react-bootstrap";
+import { FaPlaneDeparture, FaCalendarAlt, FaUsers, FaCheckCircle } from "react-icons/fa";
 
 const TravelInsurance = () => {
   const [destination, setDestination] = useState("");
@@ -15,13 +16,13 @@ const TravelInsurance = () => {
   };
 
   return (
-    <Container className="mt-5">
-      <Card className="p-4 shadow-lg">
-        <h2 className="text-center">Travel Insurance</h2>
-        <p className="text-center text-muted">Get your travel insurance quickly</p>
+    <Container className="mt-5 d-flex justify-content-center">
+      <Card className="p-4 shadow-lg w-100" style={{ maxWidth: "500px" }}>
+        <h2 className="text-center text-primary fw-bold">Travel Insurance</h2>
+        <p className="text-center text-muted">Secure your trip in just a few steps</p>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
-            <Form.Label>Destination</Form.Label>
+            <Form.Label><FaPlaneDeparture className="me-2 text-warning" /> Destination</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter destination"
@@ -31,28 +32,33 @@ const TravelInsurance = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Start Date</Form.Label>
-            <Form.Control
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              required
-            />
-          </Form.Group>
+          <Row>
+            <Col md={6}>
+              <Form.Group className="mb-3">
+                <Form.Label><FaCalendarAlt className="me-2 text-warning" /> Start Date</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-3">
+                <Form.Label><FaCalendarAlt className="me-2 text-warning" /> End Date</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
 
           <Form.Group className="mb-3">
-            <Form.Label>End Date</Form.Label>
-            <Form.Control
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Number of Travelers</Form.Label>
+            <Form.Label><FaUsers className="me-2 text-warning" /> Number of Travelers</Form.Label>
             <Form.Control
               type="number"
               min="1"
@@ -65,19 +71,20 @@ const TravelInsurance = () => {
           <Form.Group className="mb-3">
             <Form.Check
               type="checkbox"
-              label="I agree to the Terms & Conditions"
-              style={{color:"#FF6600"}}
+              label={<><FaCheckCircle className="me-2 text-warning" /> I agree to the Terms & Conditions</>}
+              className="fw-semibold"
               checked={agreed}
               onChange={() => setAgreed(!agreed)}
               required
             />
           </Form.Group>
 
-          <Button type="submit" className="w-100" disabled={!agreed} style={{background:"#FF6600"}}>
+          <Button type="submit" className="w-100 fw-bold text-white" disabled={!agreed} style={{ background: "#FF6600", border: "none" }}>
             Get Quote
           </Button>
         </Form>
       </Card>
+      <div style={{ minHeight: "100px" }}></div>
     </Container>
   );
 };

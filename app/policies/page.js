@@ -45,15 +45,7 @@ export default function Policies() {
           <button style={{ padding: '12px 25px', backgroundColor: '#FFF', color: '#FF6600', border: '2px solid #FF6600', borderRadius: '8px', fontSize: '16px', cursor: 'pointer' }} onClick={() => router.push('/add-policy/health')}>Add policy</button>
         </div>
 
-              <nav className="navbar fixed-bottom bg-white shadow">
-                <div className="container d-flex justify-content-around">
-                  <Link href="/home" className="nav-link active">Home</Link>
-                  <Link href="/policies" className="nav-link">Policies</Link>
-                  <Link href="/benefits" className="nav-link">Benefits</Link>
-                  <Link href="/buy-policy" className="nav-link">Buy</Link>
-                  <Link href="/help" className="nav-link">Help</Link>
-                </div>
-              </nav>
+        <div style={{height:"200px"}}></div>
       </div>
     );
   }

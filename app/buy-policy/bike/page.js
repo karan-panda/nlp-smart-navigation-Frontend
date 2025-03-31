@@ -6,7 +6,7 @@ const TwoWheelerInsurance = () => {
     <div className="container p-3">
       <h2 className="text-center fw-bold">Two Wheeler Insurance</h2>
       <div className="card p-3 mt-3">
-        <div className="text-white p-3 rounded" style={{ backgroundColor: "#FF6640" }}>
+        <div className="text-white p-3 rounded" style={{ backgroundColor: "#FF9A00" }}>
           <h5>Bike Insurance that is right for you</h5>
           <p className="mb-0">Price starting at just ₹538*</p>
           <ul className="list-unstyled mt-2">

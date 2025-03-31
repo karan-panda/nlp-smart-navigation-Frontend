@@ -11,7 +11,7 @@ const InsuranceForm = () => {
 
   return (
     <div className="container mt-4">
-      <h3>Activate Booster</h3>
+      <h3>Maxprotect Booster</h3>
       <div className="alert alert-info d-flex align-items-center">
         <span className="me-2">🩺</span>
         <span>
@@ -70,7 +70,7 @@ const InsuranceForm = () => {
         <label className="form-check-label">Parents</label>
       </div>
 
-      <button className="btn btn-warning w-100 mt-3">View Policy</button>
+      <button className="btn w-100 mt-3" style={{background:"#ff6600"}}>View Policy</button>
     </div>
   );
 };
