@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function Policies() {
@@ -43,6 +44,8 @@ export default function Policies() {
           </p>
           <button style={{ padding: '12px 25px', backgroundColor: '#FFF', color: '#FF6600', border: '2px solid #FF6600', borderRadius: '8px', fontSize: '16px', cursor: 'pointer' }} onClick={() => router.push('/add-policy/health')}>Add policy</button>
         </div>
+
+        <div style={{height:"200px"}}></div>
       </div>
     );
   }

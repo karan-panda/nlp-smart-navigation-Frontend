@@ -84,6 +84,23 @@ export default function BenefitsPage() {
           </div>
         </div>
       </div>
+
+      <div className="bg-primary bg-opacity-10 p-3  mt-5 rounded">
+        <h3 className="h5 text-primary">Manage <span className="text-warning">Documents</span></h3>
+        <p className="text-muted">Secure digital access to health records and healthcare services.</p>
+        <div className="d-flex gap-3 mt-3">
+          <div className="bg-white p-3 rounded shadow-sm d-flex align-items-center gap-2">
+            <ShieldCheck className="text-primary" /> Unified Health Records
+          </div>
+          <div className="bg-white p-3 rounded shadow-sm d-flex align-items-center gap-2">
+            <Activity className="text-success" /> Seamless Healthcare Access
+          </div>
+          <div className="bg-white p-3 rounded shadow-sm d-flex align-items-center gap-2">
+            <ShieldCheck className="text-primary" /> Enhanced Privacy & Security
+          </div>
+        </div>
+      </div>
+      <div style={{height:"200px"}}></div>
     </div>
   );
 }
