@@ -61,7 +61,7 @@ export default function HealthBuyPolicy() {
         <Link href="/buy">
           <span className="text-white fs-4">&larr;</span>
         </Link>
-        <h2 className="ms-3 text-warning fw-bold mb-0">Health Buy Policy</h2>
+        <h2 className="ms-3 fw-bold mb-0" style={{color:"#FF6600"}}>Health Buy Policy</h2>
       </div>
 
       {/* Policy Cards */}
@@ -72,7 +72,7 @@ export default function HealthBuyPolicy() {
               <div className="d-flex justify-content-between align-items-center">
                 <h5 className="fw-bold">{policy.title}</h5>
                 {policy.tag && (
-                  <span className="badge bg-warning text-dark">{policy.tag}</span>
+                  <span className="badge text-dark" style={{background:"#FF6600"}}>{policy.tag}</span>
                 )}
               </div>
               <ul className="mt-2 text-secondary">
@@ -81,11 +81,11 @@ export default function HealthBuyPolicy() {
                 ))}
               </ul>
               <div className="d-flex justify-content-between mt-3">
-                <Link href="/know-more" className="text-warning fw-semibold">
+                <Link href="/know-more" className=" fw-semibold" style={{color:"#FF6600"}}>
                   Know More
                 </Link>
                 <button
-                  className="btn btn-warning text-white fw-bold"
+                  className="btn text-white fw-bold" style={{background:"#FF6600"}}
                   onClick={() => router.push(policy.route)}
                 >
                   Buy Now

@@ -22,10 +22,10 @@ const HomePolicy = () => {
           <div className="mb-3 form-check">
             <input type="checkbox" className="form-check-input" id="terms" required />
             <label className="form-check-label" htmlFor="terms">
-              I agree to the <a href="#">Terms & Conditions</a>
+              I agree to the <a href="#" style={{color:"#FF6600"}}>Terms & Conditions</a>
             </label>
           </div>
-          <button type="submit" className="btn btn-primary w-100">Get a Quote</button>
+          <button type="submit" className="btn w-100" style={{background:"#FF6600"}}>Get a Quote</button>
         </form>
       </div>
     </div>

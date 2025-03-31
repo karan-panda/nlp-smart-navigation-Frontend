@@ -66,13 +66,14 @@ const TravelInsurance = () => {
             <Form.Check
               type="checkbox"
               label="I agree to the Terms & Conditions"
+              style={{color:"#FF6600"}}
               checked={agreed}
               onChange={() => setAgreed(!agreed)}
               required
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit" className="w-100" disabled={!agreed}>
+          <Button type="submit" className="w-100" disabled={!agreed} style={{background:"#FF6600"}}>
             Get Quote
           </Button>
         </Form>

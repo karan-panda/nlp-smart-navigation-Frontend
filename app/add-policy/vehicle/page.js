@@ -23,12 +23,13 @@ export default function VehiclePolicy() {
         <h1 className="h4 fw-bold mb-0">Add Policy</h1>
       </header>
 
-      <div className="d-flex mb-3">
-        <button className="btn btn-outline-secondary me-2">Health</button>
-        <button className="btn btn-warning">Vehicle</button>
-        <button className="btn btn-outline-secondary mx-2">Travel</button>
-        <button className="btn btn-outline-secondary">Home</button>
-      </div>
+        <h2 className="h5 fw-bold mb-3">Select Policy</h2>
+        <div className="btn-group d-flex mb-3" role="group">
+          <button className="btn btn-light" onClick={() => router.push('/add-policy/health')}>Health</button>
+          <button className="btn btn-warning" style={{background:"#FF6600"}} onClick={() => router.push('/add-policy/vehicle')}>Vehicle</button>
+          <button className="btn btn-light" onClick={() => router.push('/add-policy/travel')}>Travel</button>
+          <button className="btn btn-light" onClick={() => router.push('/add-policy/home')}>Home</button>
+        </div>
 
       <form>
         <div className="mb-3">

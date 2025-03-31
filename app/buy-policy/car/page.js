@@ -21,7 +21,7 @@ const CarInsurance = () => {
               onChange={(e) => setRegistration(e.target.value)}
             />
           </Form.Group>
-          <Button className="mt-3 w-100" variant="warning">
+          <Button className="mt-3 w-100" variant="warning" style={{background:"#FF6620"}}>
             Get quote
           </Button>
           <p className="mt-2 text-primary" style={{ cursor: "pointer" }}>
