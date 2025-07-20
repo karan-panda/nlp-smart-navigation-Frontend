@@ -21,9 +21,9 @@ export default function HealthScan() {
           <Form.Group controlId="username">
             <Form.Label className="fw-semibold text-dark"><FaUser className="me-2" />User Name</Form.Label>
             <Form.Select className="shadow-sm">
+              <option>Karan</option>
               <option>Rohit</option>
-              <option>John</option>
-              <option>Emma</option>
+              <option>Sharukh</option>
             </Form.Select>
           </Form.Group>
         </Col>
