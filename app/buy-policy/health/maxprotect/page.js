@@ -1,76 +1,229 @@
 "use client";
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { FaArrowLeft, FaMapMarkerAlt, FaUserShield, FaCheckCircle, FaShieldAlt, FaHeartbeat, FaHospital, FaMedkit } from "react-icons/fa";
 
 const InsuranceForm = () => {
   const [pincode, setPincode] = useState("");
-  const [self, setSelf] = useState(false);
-  const [spouse, setSpouse] = useState(false);
-  const [child, setChild] = useState(false);
-  const [parents, setParents] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const options = ["Self", "Spouse", "Child", "Parents"];
+
+  // Features list for the insurance card
+  const features = [
+    { text: "Comprehensive Coverage" },
+    { text: "Cashless Hospitalization" },
+    { text: "Day Care Procedures" },
+    { text: "No Medical Tests" },
+    { text: "Tax Benefits" },
+    { text: "Family Floater Option" }
+  ];
+
+  const handleCheckboxChange = (option) => {
+    setSelectedOptions((prev) =>
+      prev.includes(option) ? prev.filter((item) => item !== option) : [...prev, option]
+    );
+  };
 
   return (
-    <div className="container mt-4">
-      <h3>Maxprotect Booster</h3>
-      <div className="alert alert-info d-flex align-items-center">
-        <span className="me-2">🩺</span>
-        <span>
-          ICICI Lombard's Activate Booster policy is designed to cater to your
-          health journey at all stages. <a href="#">Know more</a>
-        </span>
-      </div>
-      <p>One step away from securing your family's health.</p>
-
-      <div className="mb-3">
-        <label className="form-label">Where do you live?</label>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Pincode"
-          value={pincode}
-          onChange={(e) => setPincode(e.target.value)}
-        />
-      </div>
-
-      <label className="form-label">Who do you want to insure?</label>
-      <div className="form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          checked={self}
-          onChange={() => setSelf(!self)}
-        />
-        <label className="form-check-label">Self</label>
-      </div>
-      <div className="form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          checked={spouse}
-          onChange={() => setSpouse(!spouse)}
-        />
-        <label className="form-check-label">Spouse</label>
-      </div>
-      <div className="form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          checked={child}
-          onChange={() => setChild(!child)}
-        />
-        <label className="form-check-label">Child</label>
-      </div>
-      <div className="form-check">
-        <input
-          type="checkbox"
-          className="form-check-input"
-          checked={parents}
-          onChange={() => setParents(!parents)}
-        />
-        <label className="form-check-label">Parents</label>
+    <div className="container py-4" style={{maxWidth: "800px", backgroundImage: 'linear-gradient(120deg, #fdfbfb 0%, #f6f7fb 100%)'}}>
+      {/* Header */}
+      <div className="d-flex align-items-center justify-content-between mb-4">
+        <Link href="/buy-policy/health">
+          <motion.div 
+            whileHover={{ x: -3 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <button className="btn btn-light me-3 d-flex align-items-center shadow-sm" style={{transition: 'all 0.3s', borderRadius: '50px', padding: '8px 16px', border: 'none'}}>
+              <FaArrowLeft className="me-2" /> Back
+            </button>
+          </motion.div>
+        </Link>
+        
+        <div className="badge" style={{
+          background: 'rgba(255, 102, 0, 0.1)', 
+          color: '#FF6600', 
+          padding: '8px 12px', 
+          borderRadius: '8px',
+          fontSize: '0.8rem'
+        }}>
+          Premium Health Plan
+        </div>
       </div>
 
-      <button className="btn w-100 mt-3" style={{background:"#ff6600"}}>View Policy</button>
+      <motion.div 
+        className="mb-4"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <h3 className="fw-bold mb-2" style={{color: '#333'}}><span style={{color: '#FF6600'}}>Maxprotect</span> Booster</h3>
+        <p className="text-muted">One step away from securing your family's health</p>
+      </motion.div>
+      
+      {/* Main Card */}
+      <div className="card border-0 shadow-sm mb-4" style={{borderRadius: "16px", overflow: "hidden"}}>
+        <div className="text-white p-4" style={{ background: 'linear-gradient(135deg, #FF6600 0%, #FF9A00 100%)' }}>
+          <div className="d-flex align-items-center mb-2">
+            <FaShieldAlt className="me-2" size={20} />
+            <h5 className="mb-0 fw-bold">ICICI Lombard's Maxprotect Booster</h5>
+          </div>
+          <p className="mb-3">Designed to cater to your health journey at all stages with maximum protection.</p>
+          <div className="row mt-2">
+            {features.map((feature, index) => (
+              <div key={index} className="col-md-4 mb-2">
+                <div className="d-flex align-items-center">
+                  <FaCheckCircle className="me-2" size={14} />
+                  <small>{feature.text}</small>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3">
+            <span className="badge bg-white text-dark p-2" style={{borderRadius: "8px"}}>Starting at ₹1,899/year*</span>
+          </div>
+        </div>
+        
+        <div className="p-4">
+          {/* Pincode Input */}
+          <div className="mb-4">
+            <h6 className="fw-bold mb-3 d-flex align-items-center" style={{color: '#333'}}>
+              <div className="icon-gradient me-2 d-flex align-items-center justify-content-center" 
+                style={{width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(255, 102, 0, 0.1)'}}>
+                <FaMapMarkerAlt style={{color: '#FF6600'}} />
+              </div>
+              Where do you live?
+            </h6>
+            <div className="input-group">
+              <input 
+                type="text" 
+                className="form-control" 
+                placeholder="Enter Pincode" 
+                value={pincode}
+                onChange={(e) => setPincode(e.target.value)}
+                style={{
+                  borderRadius: "10px",
+                  border: "1px solid #e0e0e0",
+                  padding: "12px 15px",
+                  fontSize: "1rem"
+                }}
+              />
+            </div>
+            <small className="text-muted mt-2 d-block">Enter your 6-digit pincode for accurate coverage details</small>
+          </div>
+
+          {/* Insurance Selection */}
+          <div className="mb-4">
+            <h6 className="fw-bold mb-3 d-flex align-items-center" style={{color: '#333'}}>
+              <div className="icon-gradient me-2 d-flex align-items-center justify-content-center" 
+                style={{width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(255, 102, 0, 0.1)'}}>
+                <FaUserShield style={{color: '#FF6600'}} />
+              </div>
+              Who do you want to insure?
+            </h6>
+            <div className="row">
+              {options.map((option, index) => (
+                <div key={index} className="col-6 col-md-3 mb-3">
+                  <motion.div 
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div 
+                      className="p-3 text-center rounded-3 cursor-pointer" 
+                      style={{
+                        background: selectedOptions.includes(option) ? 'rgba(255, 102, 0, 0.1)' : '#f8f9fa',
+                        border: selectedOptions.includes(option) ? '1px solid #FF6600' : '1px solid #e0e0e0',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s'
+                      }}
+                      onClick={() => handleCheckboxChange(option)}
+                    >
+                      <div className="d-flex flex-column align-items-center">
+                        <div className="mb-2">
+                          {selectedOptions.includes(option) ? (
+                            <FaCheckCircle size={24} style={{color: '#FF6600'}} />
+                          ) : (
+                            <FaUserShield size={24} className="text-muted" />
+                          )}
+                        </div>
+                        <span className={`fw-medium ${selectedOptions.includes(option) ? 'text-dark' : 'text-muted'}`}>
+                          {option}
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* View Policy Button */}
+          <motion.div 
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <button className="btn w-100 py-3" style={{
+              background: "linear-gradient(135deg, #FF6600 0%, #FF9A00 100%)",
+              color: "white",
+              borderRadius: "10px",
+              fontWeight: "600",
+              border: "none",
+              boxShadow: "0 4px 10px rgba(255, 102, 0, 0.3)"
+            }}>
+              View Policy
+            </button>
+          </motion.div>
+        </div>
+      </div>
+      
+      {/* Footer */}
+      <div className="footer mt-5">
+        <div className="d-flex justify-content-between align-items-center py-3 px-4 rounded-3" style={{background: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(10px)', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.03)'}}>
+          <div className="d-flex align-items-center">
+            <div className="icon-gradient me-2 d-flex align-items-center justify-content-center" style={{width: '30px', height: '30px', borderRadius: '8px', background: 'linear-gradient(135deg, #FF6600 0%, #FF9A00 100%)'}}>
+              <FaShieldAlt style={{color:'white', fontSize: '0.9rem'}} />
+            </div>
+            <small className="fw-medium" style={{color: "#666"}}>ICICI Health Insurance</small>
+          </div>
+          <div className="d-flex gap-3">
+            <Link href="#" className="text-decoration-none hover-link" style={{color: "#FF6600", transition: 'all 0.3s'}}>
+              <small className="fw-semibold">Help</small>
+            </Link>
+            <Link href="#" className="text-decoration-none hover-link" style={{color: "#FF6600", transition: 'all 0.3s'}}>
+              <small className="fw-semibold">Terms</small>
+            </Link>
+            <Link href="#" className="text-decoration-none hover-link" style={{color: "#FF6600", transition: 'all 0.3s'}}>
+              <small className="fw-semibold">Privacy</small>
+            </Link>
+          </div>
+        </div>
+      </div>
+      
+      <div className="text-center text-muted small mt-4">
+        *Premium may vary based on your age, location, and coverage options.
+      </div>
+      
+      <style jsx global>{`
+        .form-control:focus {
+          box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
+          border-color: #FF6600;
+        }
+        .hover-link:hover {
+          opacity: 0.8;
+          transform: translateY(-1px);
+        }
+        @media (max-width: 768px) {
+          .footer .d-flex {
+            flex-direction: column;
+            gap: 10px;
+          }
+          .footer .d-flex.gap-3 {
+            flex-direction: row;
+          }
+        }
+      `}</style>
+      
+      <div style={{ minHeight: "40px" }}></div>
     </div>
   );
 };

@@ -1,13 +1,26 @@
 "use client";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Link from 'next/link';
 import { useState } from 'react';
 import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
-import { FaUser, FaArrowLeft, FaMapMarkerAlt, FaCheckCircle } from 'react-icons/fa';
+import { FaUser, FaArrowLeft, FaMapMarkerAlt, FaCheckCircle, FaHeartbeat, FaHospital, FaMedkit, FaShieldAlt, FaUserShield } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 export default function HealthAdvantEdge() {
     const [pincode, setPincode] = useState('');
     const [selectedOptions, setSelectedOptions] = useState([]);
     const options = ['Self', 'Spouse', 'Child'];
+    const [agreedToTerms, setAgreedToTerms] = useState(false);
+    
+    // Features list for the insurance card
+    const features = [
+        { text: "Comprehensive Coverage" },
+        { text: "No Claim Bonus" },
+        { text: "Cashless Hospitalization" },
+        { text: "Day Care Procedures" },
+        { text: "Health Check-ups" },
+        { text: "Tax Benefits" }
+    ];
 
     const handleCheckboxChange = (option) => {
         setSelectedOptions((prev) =>
@@ -18,54 +31,218 @@ export default function HealthAdvantEdge() {
     };
 
     return (
-        <Container className="py-4">
-            <div className="d-flex align-items-center mb-3">
-                <FaArrowLeft className="me-2 text-warning" size={22} />
-                <h4 className="fw-bold">Health AdvantEdge</h4>
+        <Container className="py-4" style={{maxWidth: "800px", backgroundImage: 'linear-gradient(120deg, #fdfbfb 0%, #f6f7fb 100%)'}}>
+            <div className="d-flex align-items-center justify-content-between mb-4">
+                <Link href="/buy-policy/health">
+                    <motion.div 
+                        whileHover={{ x: -3 }}
+                        whileTap={{ scale: 0.95 }}
+                    >
+                        <button className="btn btn-light me-3 d-flex align-items-center shadow-sm" style={{transition: 'all 0.3s', borderRadius: '50px', padding: '8px 16px', border: 'none'}}>
+                            <FaArrowLeft className="me-2" /> Back
+                        </button>
+                    </motion.div>
+                </Link>
+                
+                <div className="badge" style={{
+                    background: 'rgba(255, 102, 0, 0.1)', 
+                    color: '#FF6600', 
+                    padding: '8px 12px', 
+                    borderRadius: '8px',
+                    fontSize: '0.8rem'
+                }}>
+                    Premium Health Plan
+                </div>
             </div>
-            <Card className="p-3 mb-4 shadow-sm border-0">
-                <p className="mb-0 fw-semibold">
-                    A comprehensive policy designed to cater to your healthcare needs
-                    <span className="text-warning ms-2" style={{ cursor: 'pointer', fontWeight: 'bold' }}>Know more</span>
-                </p>
-            </Card>
-            <h5 className="fw-bold">One step away from securing your family’s health</h5>
-            <p className="text-muted">Help us with a few details to find the right plan</p>
-            <Form>
-                <Form.Group className="mb-3">
-                    <Form.Label className="fw-semibold"><FaMapMarkerAlt className="me-2 text-warning" />Where do you live?</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter Pincode"
-                        value={pincode}
-                        onChange={(e) => setPincode(e.target.value)}
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label className="fw-semibold"><FaUser className="me-2 text-warning" />Who do you want to insure?</Form.Label>
-                    <Row>
-                        {options.map((option, index) => (
-                            <Col key={index} xs={6} md={4}>
-                                <Form.Check
-                                    type="checkbox"
-                                    label={option}
-                                    checked={selectedOptions.includes(option)}
-                                    onChange={() => handleCheckboxChange(option)}
-                                />
-                            </Col>
+
+            <motion.div 
+                className="mb-4"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+            >
+                <h3 className="fw-bold mb-2" style={{color: '#333'}}>Health <span style={{color: '#FF6600'}}>AdvantEdge</span></h3>
+                <p className="text-muted">One step away from securing your family's health</p>
+            </motion.div>
+            
+            <Card className="border-0 shadow-sm mb-4" style={{borderRadius: "16px", overflow: "hidden"}}>
+                <div className="text-white p-4" style={{ background: 'linear-gradient(135deg, #FF6600 0%, #FF9A00 100%)' }}>
+                    <div className="d-flex align-items-center mb-2">
+                        <FaShieldAlt className="me-2" size={20} />
+                        <h5 className="mb-0 fw-bold">Comprehensive Health Protection</h5>
+                    </div>
+                    <p className="mb-3">A policy designed to cater to all your healthcare needs with premium benefits.</p>
+                    <div className="row mt-2">
+                        {features.map((feature, index) => (
+                            <div key={index} className="col-md-4 mb-2">
+                                <div className="d-flex align-items-center">
+                                    <FaCheckCircle className="me-2" size={14} />
+                                    <small>{feature.text}</small>
+                                </div>
+                            </div>
                         ))}
-                    </Row>
-                </Form.Group>
-                <Form.Group className="mb-3 d-flex align-items-center">
-                    <Form.Check type="checkbox" className="me-2" />
-                    <span>
-                        By clicking on Proceed, you agree to our <span className="text-warning fw-bold">Disclaimer</span> and <span className="text-warning fw-bold">Terms & Conditions</span>
-                    </span>
-                </Form.Group>
-                <Button className="w-100 fw-semibold" style={{ backgroundColor: '#ff6600', borderColor: '#ff6600' }}>
-                    <FaCheckCircle className="me-2" />View Plans
-                </Button>
-            </Form>
+                    </div>
+                    <div className="mt-3">
+                        <span className="badge bg-white text-dark p-2" style={{borderRadius: "8px"}}>Starting at ₹1,999/year*</span>
+                    </div>
+                </div>
+                
+                <div className="p-4">
+                    <h6 className="fw-bold mb-4" style={{color: '#444'}}>Help us with a few details to find the right plan</h6>
+                    
+                    <Form>
+                        <div className="mb-4">
+                            <h6 className="fw-bold mb-3 d-flex align-items-center" style={{color: '#333'}}>
+                                <div className="icon-gradient me-2 d-flex align-items-center justify-content-center" 
+                                    style={{width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(255, 102, 0, 0.1)'}}>
+                                    <FaMapMarkerAlt style={{color: '#FF6600'}} />
+                                </div>
+                                Where do you live?
+                            </h6>
+                            <Form.Group>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Enter Pincode"
+                                    value={pincode}
+                                    onChange={(e) => setPincode(e.target.value)}
+                                    style={{
+                                        borderRadius: "10px",
+                                        border: "1px solid #e0e0e0",
+                                        padding: "12px 15px",
+                                        fontSize: "1rem"
+                                    }}
+                                />
+                                <Form.Text className="text-muted">
+                                    Enter your 6-digit pincode for accurate coverage details
+                                </Form.Text>
+                            </Form.Group>
+                        </div>
+                        
+                        <div className="mb-4">
+                            <h6 className="fw-bold mb-3 d-flex align-items-center" style={{color: '#333'}}>
+                                <div className="icon-gradient me-2 d-flex align-items-center justify-content-center" 
+                                    style={{width: '30px', height: '30px', borderRadius: '8px', background: 'rgba(255, 102, 0, 0.1)'}}>
+                                    <FaUserShield style={{color: '#FF6600'}} />
+                                </div>
+                                Who do you want to insure?
+                            </h6>
+                            <div className="row">
+                                {options.map((option, index) => (
+                                    <div key={index} className="col-4 mb-3">
+                                        <motion.div 
+                                            whileHover={{ y: -2 }}
+                                            whileTap={{ scale: 0.98 }}
+                                        >
+                                            <div 
+                                                className="p-3 text-center rounded-3 cursor-pointer" 
+                                                style={{
+                                                    background: selectedOptions.includes(option) ? 'rgba(255, 102, 0, 0.1)' : '#f8f9fa',
+                                                    border: selectedOptions.includes(option) ? '1px solid #FF6600' : '1px solid #e0e0e0',
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.3s'
+                                                }}
+                                                onClick={() => handleCheckboxChange(option)}
+                                            >
+                                                <div className="d-flex flex-column align-items-center">
+                                                    <div className="mb-2">
+                                                        {selectedOptions.includes(option) ? (
+                                                            <FaCheckCircle size={24} style={{color: '#FF6600'}} />
+                                                        ) : (
+                                                            <FaUser size={24} className="text-muted" />
+                                                        )}
+                                                    </div>
+                                                    <span className={`fw-medium ${selectedOptions.includes(option) ? 'text-dark' : 'text-muted'}`}>
+                                                        {option}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        
+                        <div className="mb-4">
+                            <div className="p-3 rounded-3" style={{background: 'rgba(255, 102, 0, 0.05)', border: '1px dashed rgba(255, 102, 0, 0.3)'}}>
+                                <Form.Check 
+                                    type="checkbox" 
+                                    id="terms-checkbox"
+                                    checked={agreedToTerms}
+                                    onChange={() => setAgreedToTerms(!agreedToTerms)}
+                                    label={
+                                        <span className="ms-2">
+                                            By clicking on Proceed, you agree to our <span style={{color: '#FF6600', fontWeight: 'bold', cursor: 'pointer'}}>Disclaimer</span> and <span style={{color: '#FF6600', fontWeight: 'bold', cursor: 'pointer'}}>Terms & Conditions</span>
+                                        </span>
+                                    }
+                                />
+                            </div>
+                        </div>
+                        
+                        <motion.div 
+                            whileHover={{ y: -3 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            <button className="btn w-100 py-3" style={{
+                                background: "linear-gradient(135deg, #FF6600 0%, #FF9A00 100%)",
+                                color: "white",
+                                borderRadius: "10px",
+                                fontWeight: "600",
+                                border: "none",
+                                boxShadow: "0 4px 10px rgba(255, 102, 0, 0.3)"
+                            }}>
+                                <FaCheckCircle className="me-2" />View Plans
+                            </button>
+                        </motion.div>
+                    </Form>
+                </div>
+            </Card>
+            
+            <div className="footer mt-5">
+                <div className="d-flex justify-content-between align-items-center py-3 px-4 rounded-3" style={{background: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(10px)', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.03)'}}>
+                    <div className="d-flex align-items-center">
+                        <div className="icon-gradient me-2 d-flex align-items-center justify-content-center" style={{width: '30px', height: '30px', borderRadius: '8px', background: 'linear-gradient(135deg, #FF6600 0%, #FF9A00 100%)'}}>
+                            <FaShieldAlt style={{color:'white', fontSize: '0.9rem'}} />
+                        </div>
+                        <small className="fw-medium" style={{color: "#666"}}>ICICI Health Insurance</small>
+                    </div>
+                    <div className="d-flex gap-3">
+                        <Link href="#" className="text-decoration-none hover-link" style={{color: "#FF6600", transition: 'all 0.3s'}}>
+                            <small className="fw-semibold">Help</small>
+                        </Link>
+                        <Link href="#" className="text-decoration-none hover-link" style={{color: "#FF6600", transition: 'all 0.3s'}}>
+                            <small className="fw-semibold">Terms</small>
+                        </Link>
+                        <Link href="#" className="text-decoration-none hover-link" style={{color: "#FF6600", transition: 'all 0.3s'}}>
+                            <small className="fw-semibold">Privacy</small>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+            
+            <div className="text-center text-muted small mt-4">
+                *Premium may vary based on your age, location, and coverage options.
+            </div>
+            
+            <style jsx global>{`
+                .form-control:focus {
+                    box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
+                    border-color: #FF6600;
+                }
+                .hover-link:hover {
+                    opacity: 0.8;
+                    transform: translateY(-1px);
+                }
+                @media (max-width: 768px) {
+                    .footer .d-flex {
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+                    .footer .d-flex.gap-3 {
+                        flex-direction: row;
+                    }
+                }
+            `}</style>
+            
+            <div style={{ minHeight: "40px" }}></div>
         </Container>
     );
 }
