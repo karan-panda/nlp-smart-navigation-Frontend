@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, ArrowRight, Sparkles } from "lucide-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useRouter } from "next/navigation";
-import { BrowserRouter as Router } from "react-router-dom";
 import Nav from "./components/Nav";
 
 export default function Layout({ children }) {
@@ -593,9 +592,7 @@ export default function Layout({ children }) {
       </head>
       <body>
         <div className="position-relative min-vh-100 overflow-hidden">
-          <Router>
             {children}
-          </Router>
 
           {/* Search trigger button on right side */}
           <motion.div 
