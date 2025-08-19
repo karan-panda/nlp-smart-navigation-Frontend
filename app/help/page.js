@@ -15,7 +15,9 @@ import {
   FaLifeRing,
   FaCheck,
   FaCheckDouble,
-  FaSpinner
+  FaSpinner,
+  FaArrowRight,
+  FaExternalLinkAlt
 } from "react-icons/fa";
 import axios from "axios";
 
@@ -23,39 +25,60 @@ export default function Help() {
   // Log development information about API connection
   useEffect(() => {
     console.info(
-      "%cICICI Lombard Chatbot API Integration",
+      "%cICICI Lombard Chatbot MCP API Integration",
       "color: #FF6600; font-weight: bold; font-size: 14px;"
     );
     console.info(
-      "To connect to the backend API, make sure your server is running at: http://localhost:8001/query"
+      "To connect to the backend API, make sure your server is running at: http://localhost:8001/mcp/query"
     );
     console.info(
-      "API should accept POST requests with format: { question: string, chat_history: Array, temperature: number, model: string }"
+      "API should accept POST requests with format: { question: string, temperature: number }"
     );
   }, []);
+  
+  // Client-side only: Update welcome message time after hydration is complete
+  useEffect(() => {
+    // This runs only on client-side after hydration
+    if (typeof window !== 'undefined') {
+      setMessages(prevMessages => {
+        // If the first message is the welcome message with placeholder time, update it
+        if (prevMessages.length > 0 && prevMessages[0].time === "--:--") {
+          const updatedMessages = [...prevMessages];
+          updatedMessages[0] = {
+            ...updatedMessages[0],
+            time: formatTime()
+          };
+          return updatedMessages;
+        }
+        return prevMessages;
+      });
+    }
+  }, []);
 
+  // Function to format time consistently across server and client
+  const formatTime = () => {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+  
+  // Fixed welcome message with static time to avoid hydration mismatch
+  const WELCOME_MESSAGE = {
+    sender: "bot", 
+    text: "Hello! 👋 I'm your AI Insurance Assistant. How can I help you today?",
+    time: "--:--", // Static placeholder time that won't cause hydration errors
+    sources: []
+  };
+  
   // Chat state
   const [messages, setMessages] = useState(() => {
     // Try to load messages from localStorage
     if (typeof window !== 'undefined') {
       const savedMessages = localStorage.getItem('iciciChatMessages');
-      return savedMessages ? JSON.parse(savedMessages) : [
-        { 
-          sender: "bot", 
-          text: "Hello! 👋 I'm your AI Insurance Assistant. How can I help you today?",
-          time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-          sources: []
-        }
-      ];
+      return savedMessages ? JSON.parse(savedMessages) : [WELCOME_MESSAGE];
     }
-    return [
-      { 
-        sender: "bot", 
-        text: "Hello! 👋 I'm your AI Insurance Assistant. How can I help you today?",
-        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        sources: []
-      }
-    ];
+    return [WELCOME_MESSAGE];
   });
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -105,119 +128,13 @@ export default function Help() {
   const handleSendMessage = async () => {
     if (input.trim() === "") return;
 
-    // Special case for chatbot instructions - this will always work even without backend
-    if (input.toLowerCase().includes("chatbot") && 
-        (input.toLowerCase().includes("work") || input.toLowerCase().includes("how"))) {
-      
-      // Add user message
-      const userMessage = { 
-        sender: "user", 
-        text: input,
-        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        status: "sent" 
-      };
-      
-      setMessages(prev => [...prev, userMessage]);
-      setInput("");
-      setIsTyping(true);
-      
-      // Update message status to show read receipts
-      setTimeout(() => {
-        setMessages(prevMessages => 
-          prevMessages.map((msg, idx) => 
-            idx === prevMessages.length - 1 ? {...msg, status: "delivered"} : msg
-          )
-        );
-      }, 500);
-      
-      setTimeout(() => {
-        setMessages(prevMessages => 
-          prevMessages.map((msg, idx) => 
-            idx === prevMessages.length - 1 ? {...msg, status: "read"} : msg
-          )
-        );
-      }, 1000);
-        
-      setTimeout(() => {
-        setIsTyping(false);
-        setMessages(prev => [
-          ...prev, 
-          { 
-            sender: "bot", 
-            text: "I'm an AI-powered assistant designed to help you with insurance-related questions. You can ask me about ICICI Lombard's policies, claims procedures, coverage details, and more. I connect to a knowledge base to provide you with accurate information.\n\nTo use me effectively:\n\n- Ask specific questions for more precise answers\n- I can help with policy details, claims processes, and insurance guidance\n- For urgent matters, please contact customer support directly at 1800-2666\n- Your chat history is saved locally for a personalized experience",
-            time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-            sources: []
-          }
-        ]);
-      }, 1500);
-      
-      return;
-    }
-    
-    // Special case for TripSecure+ for testing/demo purposes
-    if (input.toLowerCase().includes("tripsecure") || input.toLowerCase().includes("trip secure")) {
-      // Add user message
-      const userMessage = { 
-        sender: "user", 
-        text: input,
-        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        status: "sent" 
-      };
-      
-      setMessages(prev => [...prev, userMessage]);
-      setInput("");
-      setIsTyping(true);
-      
-      // Update message status
-      setTimeout(() => {
-        setMessages(prevMessages => 
-          prevMessages.map((msg, idx) => 
-            idx === prevMessages.length - 1 ? {...msg, status: "delivered"} : msg
-          )
-        );
-      }, 500);
-      
-      setTimeout(() => {
-        setMessages(prevMessages => 
-          prevMessages.map((msg, idx) => 
-            idx === prevMessages.length - 1 ? {...msg, status: "read"} : msg
-          )
-        );
-      }, 1000);
-      
-      // Update chat history
-      setChatHistory(prev => [...prev, {
-        human: input,
-        ai: "TripSecure+ is a comprehensive travel insurance plan offered by ICICI Lombard..."
-      }]);
-      
-      // After a short delay, add the bot's response
-      setTimeout(() => {
-        setIsTyping(false);
-        setMessages(prev => [
-          ...prev, 
-          { 
-            sender: "bot", 
-            text: "TripSecure+ is a comprehensive travel insurance plan offered by ICICI Lombard. It provides holistic coverage against medical emergencies, trip cancellations, baggage loss, and delays while traveling.\n\nKey benefits include:\n- Medical emergency coverage\n- Trip cancellation protection\n- Baggage loss and delay compensation\n- Peace of mind during unexpected situations\n\nIt also offers custom add-ons such as:\n- Childcare expenses due to hospitalization\n- Reimbursement for pre-booked event cancellations\n- Return of rental vehicles\n- Refund of visa fees\n\nTripSecure+ is designed to give travelers complete protection and peace of mind throughout their journey.",
-            time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-            sources: [
-              {
-                name: "TripSecure+.pdf",
-                type: "Tripsecure+"
-              }
-            ]
-          }
-        ]);
-      }, 1500);
-      
-      return;
-    }
+    // All queries now handled by MCP API - removed hardcoded responses
 
     // Add user message
     const userMessage = { 
       sender: "user", 
       text: input,
-      time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+      time: formatTime(),
       status: "sent" 
     };
     
@@ -244,16 +161,31 @@ export default function Help() {
     }, 1000);
 
     try {
-      // Using localhost instead of 0.0.0.0 for better compatibility
-      const response = await axios.post('http://localhost:8001/query', {
+      // Show MCP loading message after a delay if response takes long
+      let mcpLoadingTimeout = setTimeout(() => {
+        setMessages(prev => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "Using MCP tool to find the best answer for you...",
+            time: formatTime(),
+            sources: [],
+            isMcpLoading: true
+          }
+        ]);
+      }, 3000); // Show loading message after 3 seconds
+      
+      // Using the new MCP endpoint
+      const response = await axios.post('http://localhost:8001/mcp/query', {
         question: input,
-        chat_history: chatHistory,
-        temperature: 0.2,
-        model: "gemini-1.5-flash"
+        temperature: 0.3
       }, {
-        // Increase timeout to 30 seconds
-        timeout: 30000
+        // Increase timeout to 60 seconds for MCP processing
+        timeout: 60000
       });
+      
+      // Clear the loading message timeout
+      clearTimeout(mcpLoadingTimeout);
 
       // Update chat history
       setChatHistory(prev => [...prev, {
@@ -261,21 +193,36 @@ export default function Help() {
         ai: response.data.answer
       }]);
       
+      // Remove the MCP loading message if it exists
+      setMessages(prev => prev.filter(msg => !msg.isMcpLoading));
+      
+      // Process detected intents - filter out any invalid ones
+      const validDetectedIntents = Array.isArray(response.data.detected_intent) 
+        ? response.data.detected_intent.filter(intent => intent && intent.intent && intent.route)
+        : [];
+        
       // After a short delay (1.5 seconds), add the bot's response
       setTimeout(() => {
         setIsTyping(false);
         setMessages(prev => [
-          ...prev, 
+          ...prev.filter(msg => !msg.isMcpLoading), // Remove any loading message
           { 
             sender: "bot", 
             text: response.data.answer,
-            time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-            sources: response.data.sources || []
+            time: formatTime(),
+            sources: response.data.sources || [],
+            detectedIntents: validDetectedIntents.length > 0 ? validDetectedIntents : null,
+            toolResults: response.data.tool_results || []
           }
         ]);
       }, 1500);
     } catch (error) {
       console.error("Error fetching response:", error);
+      // Clear any MCP loading timeout
+      if (mcpLoadingTimeout) clearTimeout(mcpLoadingTimeout);
+      
+      // Remove any loading messages
+      setMessages(prev => prev.filter(msg => !msg.isMcpLoading));
       
       let errorMessage = "I'm sorry, I'm having trouble connecting right now. Please try again later.";
       
@@ -295,7 +242,7 @@ export default function Help() {
           { 
             sender: "bot", 
             text: errorMessage,
-            time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+            time: formatTime(),
             sources: []
           }
         ]);
@@ -313,14 +260,7 @@ export default function Help() {
   
   // Clear chat history
   const clearChat = () => {
-    setMessages([
-      { 
-        sender: "bot", 
-        text: "Hello! 👋 I'm your AI Insurance Assistant. How can I help you today?",
-        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-        sources: []
-      }
-    ]);
+    setMessages([WELCOME_MESSAGE]);
     setChatHistory([]);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('iciciChatMessages');
@@ -496,6 +436,69 @@ export default function Help() {
                     })}
                   </div>
                   
+                  {/* MCP Loading indicator */}
+                  {msg.sender === "bot" && msg.isMcpLoading && (
+                    <div className="d-flex align-items-center mt-2">
+                      <div className="spinner-border spinner-border-sm text-warning me-2" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                      <span className="text-muted" style={{ fontSize: '0.85rem' }}>
+                        Processing your query with advanced AI...
+                      </span>
+                    </div>
+                  )}
+                  
+                  {/* Detected Intents section - only show if intents array exists, is not empty, and contains valid entries */}
+                  {msg.sender === "bot" && msg.detectedIntents && Array.isArray(msg.detectedIntents) && msg.detectedIntents.length > 0 && msg.detectedIntents.some(intent => intent.intent && intent.route) && (
+                    <div className="mt-3 pt-2 border-top" style={{borderColor: 'rgba(0,0,0,0.1)'}}>
+                      <small className="d-block text-muted mb-2" style={{fontSize: '0.7rem'}}>YOU MIGHT BE INTERESTED IN:</small>
+                      <div className="d-flex flex-column gap-2">
+                        {msg.detectedIntents.filter(intent => intent.intent && intent.route).slice(0, 3).map((intent, idx) => (
+                          <div 
+                            key={idx} 
+                            className="d-flex align-items-center p-2 rounded-3" 
+                            style={{
+                              backgroundColor: 'rgba(255, 102, 0, 0.06)',
+                              border: '1px solid rgba(255, 102, 0, 0.12)',
+                              cursor: 'pointer',
+                              transition: 'all 0.2s ease'
+                            }}
+                            onClick={() => window.location.href = intent.route}
+                            onMouseOver={(e) => {
+                              e.currentTarget.style.backgroundColor = 'rgba(255, 102, 0, 0.12)';
+                              e.currentTarget.style.transform = 'translateX(3px)';
+                            }}
+                            onMouseOut={(e) => {
+                              e.currentTarget.style.backgroundColor = 'rgba(255, 102, 0, 0.06)';
+                              e.currentTarget.style.transform = 'translateX(0)';
+                            }}
+                          >
+                            <div className="me-auto">
+                              <div style={{ fontWeight: '500', fontSize: '0.9rem', color: '#333' }}>
+                                {intent.intent}
+                              </div>
+                              <div className="text-muted" style={{ fontSize: '0.75rem' }}>
+                                {intent.route}
+                              </div>
+                            </div>
+                            <div className="ms-2 d-flex flex-column align-items-end">
+                              <div className="badge rounded-pill" style={{ 
+                                background: 'rgba(255, 102, 0, 0.15)', 
+                                color: '#FF6600', 
+                                fontSize: '0.7rem' 
+                              }}>
+                                {Math.round(intent.score * 100)}%
+                              </div>
+                              <div className="d-flex align-items-center mt-1">
+                                <FaArrowRight size={12} color="#FF6600" />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
                   {/* Sources section for bot messages */}
                   {msg.sender === "bot" && msg.sources && msg.sources.length > 0 && (
                     <div className="mt-3 pt-2 border-top" style={{borderColor: 'rgba(0,0,0,0.1)'}}>
@@ -522,7 +525,8 @@ export default function Help() {
                   color: '#999',
                   justifyContent: msg.sender === "user" ? "flex-end" : "flex-start"
                 }}>
-                  <span>{msg.time}</span>
+                  {/* Only show time if it's not the welcome message with placeholder time */}
+                  {msg.time !== "--:--" && <span>{msg.time}</span>}
                   
                   {msg.sender === "user" && msg.status && (
                     <span className="ms-1">
